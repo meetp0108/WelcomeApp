@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout code from GitHub
+                git url: 'https://github.com/meetp0108/WelcomeApp.git', branch: 'main'
+            }
+        }
+        stage('Build') {
+            steps {
+                // Run Maven build
+                sh 'mvn clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                // Run Maven tests (if any)
+                sh 'mvn test'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application...'
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Build and tests succeeded!'
+        }
+        failure {
+            echo 'Build or tests failed.'
+        }
+    }
+}
