@@ -10,7 +10,10 @@ pipeline {
         stage('Build') {
             steps {
                 // Run Maven build
-                sh 'mvn clean package'
+                // sh 'mvn clean package'
+                 withMaven {
+                    sh "mvn clean verify"
+                 }
             }
         }
         stage('Test') {
