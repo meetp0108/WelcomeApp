@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'Maven_3.8.5' // Replace with the name/version of Maven installed on your Jenkins
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -10,10 +13,9 @@ pipeline {
         stage('Build') {
             steps {
                 // Run Maven build
-                // sh 'mvn clean package'
-                 withMaven {
+                withMaven(maven: 'Maven_3.8.5') { // Ensure Maven is properly configured
                     sh "mvn clean verify"
-                 }
+                }
             }
         }
         stage('Test') {
